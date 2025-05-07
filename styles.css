@@ -1,65 +1,70 @@
+/* General Body Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f3f1;
-    margin: 0;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f5f3f1;
+  margin: 0;
+}
 
-  .container {
-    background: white;
-    padding: 2em;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    width: 300px;
-    text-align: center;
-  }
+/* Container for center content */
+.container {
+  background: white;
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 300px;
+  text-align: center;
+}
 
-  input {
-    width: 100%;
-    padding: 0.5em;
-    margin: 0.5em 0;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-shadow: inset 0 2px 4px #ddd;
-  }
+/* Input Fields Styling */
+input {
+  width: 100%;
+  padding: 0.5em;
+  margin: 0.5em 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 2px 4px #ddd;
+}
 
-  button {
-    padding: 0.5em 1em;
-    background: black;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+/* Button Styling */
+button {
+  padding: 0.5em 1em;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-  .login-link {
-    margin-top: 1em;
-    font-size: 0.9em;
-  }
+/* Login Link Styling */
+.login-link {
+  margin-top: 1em;
+  font-size: 0.9em;
+}
 
-  .login-link a {
-    color: #007BFF;
-    text-decoration: none;
-  }
+.login-link a {
+  color: #007BFF;
+  text-decoration: none;
+}
 
-  .image-wrapper {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .top-image {
-    max-width: 150px;
-    height: auto;
-  }
+/* Image Styling */
+.image-wrapper {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  .page-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.top-image {
+  max-width: 150px;
+  height: auto;
+}
 
+/* Page Wrapper */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-/* Calendar */
-
+/* Navbar Styling */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -70,27 +75,27 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* Logo Styling */
 .navbar img[alt="Logo"] {
   height: 60px;
   display: flex;
   align-items: center;
 }
 
-
+/* Username Styling */
 .username {
-margin-left: 82%;
-font-weight: bold;
-
+  margin-left: 82%;
+  font-weight: bold;
 }
 
-
+/* Profile Dropdown Styling */
 .profile {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-
+/* Profile Image Styling */
 .profile img {
   width: 50px;
   height: 50px;
@@ -98,7 +103,7 @@ font-weight: bold;
   border-radius: 50%;
 }
 
-
+/* Dropdown Menu Styling */
 .dropdown {
   position: absolute;
   right: 30px;
@@ -112,9 +117,40 @@ font-weight: bold;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.hidden {
-  display: none;
+/* Dropdown Links Styling */
+.dropdown a {
+  color: black;
+  text-decoration: none;
+  padding: 10px 15px;
+  margin: 5px 0;
+  transition: background-color 0.3s ease;
+  position: relative;
 }
+
+/* Dropdown Link Hover Effect */
+.dropdown a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Underline Animation on Hover */
+.dropdown a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.dropdown a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Calendar Styling */
 .calendar {
   display: grid;
   grid-template-columns: repeat(7, 70px);
@@ -122,19 +158,22 @@ font-weight: bold;
   justify-content: start;
 }
 
+/* Calendar Container Styling */
 .calendar-container {
   display: flex;
   justify-content: center;
 }
 
-.month-year{
+/* Month-Year Display Styling */
+.month-year {
   font-size: 24px;
   padding: 20px;
   margin: 20px 0 20px 20%;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   display: block;
 }
 
+/* Day Styling */
 .day {
   width: 70px;
   height: 70px;
@@ -144,9 +183,10 @@ font-weight: bold;
   justify-content: center;
   color: #000000;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* Future Day Styling (Non-clickable) */
 .day.future {
   background-color: #FFFFFF;
   color: #000000;
@@ -154,16 +194,18 @@ font-weight: bold;
   pointer-events: none;
 }
 
+/* Calendar Control Styling */
 .calendar-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute; 
+  position: absolute;
   right: 25%;
   gap: 5px;
   padding: 10px;
 }
 
+/* Arrow Styling for Calendar Controls */
 .calendar-controls .arrow {
   cursor: pointer;
   display: flex;
@@ -171,6 +213,7 @@ font-weight: bold;
   justify-content: center;
 }
 
+/* Icon Styling */
 .calendar-controls .icon {
   width: 32px;
   height: 32px;
@@ -178,11 +221,12 @@ font-weight: bold;
   transition: transform 0.2s;
 }
 
+/* Hover Effect on Arrow Icon */
 .calendar-controls .arrow:hover .icon {
   transform: scale(1.1);
 }
 
-/* entry */
+/* Entry Container Styling */
 .date-mood-container {
   display: flex;
   align-items: center;
@@ -195,7 +239,6 @@ font-weight: bold;
   width: 50px;
   height: 50px;
 }
-
 .entry-container {
   position: relative;
   max-width: 600px;
@@ -205,11 +248,11 @@ font-weight: bold;
   background-image: linear-gradient(to bottom, #868585 1px, transparent 1px);
   background-size: 100% 30px;
   line-height: 30px;
-  border-radius: 8px; 
+  border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-
 }
 
+/* Red Line to the Left of Entry Container */
 .entry-container::before {
   content: '';
   position: absolute;
@@ -220,12 +263,12 @@ font-weight: bold;
   background-color: red;
 }
 
+/* Entry Content Styling */
 .entry-content {
   padding: 20px 20px 20px 50px;
 }
 
-/* write entry */
-
+/* Mood Gallery Styling */
 .mood-gallery {
   display: flex;
   gap: 10px;
@@ -235,6 +278,7 @@ font-weight: bold;
   margin-bottom: 30px;
 }
 
+/* Mood Gallery Image Styling */
 .mood-gallery img {
   width: 60px;
   height: 60px;
@@ -242,14 +286,17 @@ font-weight: bold;
   transition: transform 0.2s;
 }
 
+/* Hover Effect on Mood Gallery Images */
 .mood-gallery img:hover {
   transform: scale(1.1);
 }
 
+/* Hidden Class for Elements */
 .hidden {
   display: none;
 }
 
+/* Entry Form Styling */
 .entry-form {
   display: flex;
   justify-content: center;
@@ -258,10 +305,12 @@ font-weight: bold;
   margin: 50px auto;
 }
 
+/* Textarea Wrapper Styling */
 .textarea-wrapper {
-  position: relative;  
+  position: relative;
 }
 
+/* Textarea Styling */
 textarea {
   width: 100%;
   height: 240px;
@@ -287,17 +336,20 @@ textarea {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Placeholder Styling for Textarea */
 textarea::placeholder {
   color: black;
 }
 
-
+/* Left Red Line in Textarea Wrapper */
 .textarea-wrapper::before {
   content: '';
   position: absolute;
-  left: 25px; 
+  left: 25px;
   top: 0;
   bottom: 0;
-  width: 0.5px; 
-  background-color: red; 
+  width: 0.5px;
+  background-color: red;
 }
+
+
