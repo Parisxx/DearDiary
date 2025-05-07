@@ -1,10 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f3f1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    margin: 0;
   }
 
   .container {
@@ -61,4 +58,173 @@ body {
   }
 
 
-  
+/* Calendar */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 30px;
+  border-bottom: 1px solid #ccc;
+  background-color: white;
+  font-family: Arial, sans-serif;
+}
+
+.navbar img[alt="Logo"] {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+
+.username {
+margin-left: 82%;
+font-weight: bold;
+
+}
+
+
+.profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+.profile img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
+.dropdown {
+  position: absolute;
+  right: 30px;
+  top: 60px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+  display: none;
+}
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 70px);
+  gap: 20px;
+  justify-content: start;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: center;
+}
+
+.month-year{
+  font-size: 24px;
+  padding: 20px;
+  margin: 20px 0 20px 20%;
+  box-sizing: border-box; 
+  display: block;
+}
+
+.day {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+}
+
+.day.future {
+  background-color: #FFFFFF;
+  color: #000000;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.day.today {
+  border: 2px solid #000000;
+}
+
+.calendar-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute; 
+  right: 25%;
+  gap: 5px;
+  padding: 10px;
+}
+
+.calendar-controls .arrow {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-controls .icon {
+  width: 32px;
+  height: 32px;
+  stroke: black;
+  transition: transform 0.2s;
+}
+
+.calendar-controls .arrow:hover .icon {
+  transform: scale(1.1);
+}
+
+/* entry */
+.date-mood-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  gap: 25%;
+  margin-top: 20px;
+}
+
+.mood-indicator img {
+  width: 50px;
+  height: 50px;
+}
+
+.entry-container {
+  position: relative;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 0;
+  background-color: #f9f9f9;
+  background-image: linear-gradient(to bottom, #808080 1px, transparent 1px);
+  background-size: 100% 30px;
+  line-height: 30px;
+  border-radius: 8px; 
+
+}
+
+.entry-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 25px;
+  width: 1px;
+  background-color: red;
+}
+
+.entry-content {
+  padding: 20px 20px 20px 50px;
+}
+
+/* write entry */
