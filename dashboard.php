@@ -55,7 +55,7 @@ $hasEntryToday = $todayEntryStmt->rowCount() > 0;
     <img src="src/img/logo.png" alt="Logo">
     <span class="username">Hi, <?php echo htmlspecialchars($_SESSION['username']); ?>!</span>
     <div class="profile" onclick="toggleDropdown()">
-        <img src="src/img/<?php echo htmlspecialchars($_SESSION['pfp'] ?? 'default.png'); ?>" alt="Profile Picture">
+        <img src="src/img/<?php echo !empty($_SESSION['pfp']) ? htmlspecialchars($_SESSION['pfp']) : 'default.png'; ?>" alt="Profile Picture">
         <div id="dropdown" class="dropdown hidden">
             <a href="dashboard.php">Home</a>
             <a href="settings.php">Settings</a>
