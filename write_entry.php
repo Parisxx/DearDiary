@@ -2,7 +2,6 @@
 include('db.php');
 session_start();
 
-// Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
@@ -11,18 +10,15 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $today = date('Y-m-d');
 
-// Check if an entry already exists for today
 $stmt = $pdo->prepare("SELECT * FROM entries WHERE user_id = ? AND date = ?");
 $stmt->execute([$user_id, $today]);
 $existingEntry = $stmt->fetch();
 
-// Redirect to dashboard if entry already exists
 if ($existingEntry) {
     header("Location: dashboard.php");
     exit;
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mood_id = $_POST['mood_id'] ?? null;
     $content = $_POST['content'] ?? '';
@@ -37,10 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-
-
-// Get list of moods
-$moodQuery = $pdo->query("SELECT mood_id, name FROM moods ORDER BY name");
+$moodQuery = $pdo->query("SELECT mood_id, name FROM moods WHERE mood_id BETWEEN 1 AND 7 ORDER BY mood_id");
 $moods = $moodQuery->fetchAll();
 ?>
 
@@ -48,67 +41,65 @@ $moods = $moodQuery->fetchAll();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta charset="UTF-8">
     <title>Dear Diary</title>
     <link rel="icon" type="image/x-icon" href="src/img/logo.png">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .entry-form {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 30px;
-            background: #f9f9f9;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 10px;
-            resize: vertical;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-        select, button {
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        .error {
-            color: red;
-            margin-bottom: 15px;
-        }
-    </style>
+
 </head>
 <body>
 
-<div class="entry-form">
-    <h2>Write Entry for Today (<?php echo date('F j, Y'); ?>)</h2>
-
-    <?php if (isset($error)): ?>
-        <div class="error"><?php echo htmlspecialchars($error); ?></div>
-    <?php endif; ?>
-
-    <form method="POST">
-        <label for="mood_id">How do you feel today?</label>
-        <select name="mood_id" id="mood_id" required>
-            <option value="">Select mood</option>
-            <?php foreach ($moods as $mood): ?>
-                <option value="<?php echo $mood['mood_id']; ?>"><?php echo htmlspecialchars($mood['name']); ?></option>
-            <?php endforeach; ?>
-        </select>
-
-        <label for="content">Write about your day:</label>
-        <textarea name="content" id="content" required></textarea>
-
-        <button type="submit">Save Entry</button>
-    </form>
-
-    <a href="dashboard.php">← Back to Calendar</a>
+<div class="navbar">
+    <img src="src/img/logo.png" alt="Logo">
+    <span class="username">Hi, <?php echo htmlspecialchars($_SESSION['username']); ?>!</span>
+    <div class="profile" onclick="toggleDropdown()">
+        <img src="src/img/<?php echo htmlspecialchars($_SESSION['pfp'] ?? 'default.png'); ?>" alt="Profile Picture">
+        <div id="dropdown" class="dropdown hidden">
+            <a href="dashboard.php">Home</a>
+            <a href="settings.php">Settings</a>
+        </div>
+    </div>
 </div>
+
+<div class="date-mood-container">
+    <h2><?php echo date('l, F j, Y'); ?></h2>
+</div>
+
+<div class="entry-form">
+    <form id="entryForm" method="POST">
+        <div class="textarea-wrapper">
+            <textarea placeholder="Dear Diary..." name="content" id="content" required></textarea>
+        </div>
+
+        <input type="hidden" name="mood_id" id="mood_id">
+        <button type="submit" class="hidden">Save Entry</button>
+    </form>
+</div>
+
+<div class="mood-gallery">
+    <?php foreach ($moods as $mood): ?>
+        <img src="src/img/<?php echo htmlspecialchars($mood['name']); ?>.png"
+             alt="<?php echo htmlspecialchars($mood['name']); ?>"
+             onclick="selectMood('<?php echo $mood['mood_id']; ?>')">
+    <?php endforeach; ?>
+</div>
+
+<script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdown');
+        dropdown.classList.toggle('hidden');
+    }
+
+    function selectMood(moodId) {
+        const content = document.getElementById('content').value.trim();
+        if (!content) {
+            alert("Please write something before selecting your mood.");
+            return;
+        }
+
+        document.getElementById('mood_id').value = moodId;
+        document.getElementById('entryForm').submit();
+    }
+</script>
 
 </body>
 </html>
