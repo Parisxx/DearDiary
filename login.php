@@ -1,26 +1,6 @@
 <?php
-include 'db.php';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($user && password_verify($password, $user['password'])) {
-        session_start();
-        $_SESSION['user_id'] = $user['user_id'];
-        $_SESSION['username'] = $user['username'];
-        echo "<script>alert('Inloggen succesvol!'); window.location.href='dashboard.php';</script>";
-        exit();
-    } else {
-        echo "<script>alert('Ongeldig e-mail of wachtwoord!'); window.location.href='login.php';</script>";
-    }
-}
+// Include backend
+include('include/login_backend.php');
 ?>
 
 <html lang="en">
@@ -33,18 +13,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 
+<!-- Page wrapper -->
 <div class="page-wrapper">
+    <!-- Logo image wrapper -->
     <div class="image-wrapper">
-      <img src="src/img/logo.png" alt="Dear Diary logo" class="top-image">
+        <img src="src/img/logo.png" alt="Dear Diary logo" class="top-image">
     </div>
 
+    <!-- Login form container -->
     <div class="container">
         <h2>Login</h2>
+
+        <!-- Login form -->
         <form action="login.php" method="POST">
             <input type="email" name="email" placeholder="E-mail" required />
             <input type="password" name="password" placeholder="Password" required />
             <button type="submit">Login</button>
         </form>
+
+        <!-- Register link -->
         <div class="register-link">
             Don't have an account? <a href="index.php">Register here</a>
         </div>
