@@ -83,10 +83,6 @@ $hasEntryToday = $todayEntryStmt->rowCount() > 0;
 </div>
 
 <script>
-function toggleDropdown() {
-    const dropdown = document.getElementById('dropdown');
-    dropdown.classList.toggle('hidden');
-}
 
 const today = new Date();
 let currentMonth = <?php echo $currentMonth; ?>;
@@ -125,12 +121,13 @@ function generateCalendar() {
         let moodColor = moodData[formattedDate] || '#C3C3C3';
 
         if (day === today.getDate() && currentMonth === today.getMonth() + 1 && currentYear === today.getFullYear()) {
-            div.classList.add('day', 'today');
+    div.classList.add('day', 'today');
 
             if (hasEntryToday && moodColor !== '#C3C3C3') {
                 div.style.backgroundColor = moodColor;
             } else {
                 div.style.backgroundColor = '#FFFFFF';
+                div.classList.add('pulse-ring'); 
             }
 
             div.textContent = day;
@@ -140,6 +137,7 @@ function generateCalendar() {
             } else {
                 div.onclick = () => window.location.href = 'new_entry.php';
             }
+        
 
         } else if (date < today) {
             div.classList.add('day');
