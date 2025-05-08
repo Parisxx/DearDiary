@@ -138,7 +138,7 @@ function generateCalendar() {
             if (hasEntryToday) {
                 div.onclick = () => window.location.href = `entry.php?date=${formattedDate}`;
             } else {
-                div.onclick = () => window.location.href = 'write_entry.php';
+                div.onclick = () => window.location.href = 'new_entry.php';
             }
 
         } else if (date < today) {
