@@ -34,6 +34,28 @@ while ($row = $stmt->fetch()) {
     $moodData[$row['date']] = $row['color'];
 }
 
+// Calculate mood distribution for the current month
+$moodDistributionQuery = "
+    SELECT m.name, m.color, COUNT(*) as count
+    FROM entries e
+    JOIN moods m ON e.mood_id = m.mood_id
+    WHERE e.user_id = ? AND MONTH(e.date) = ? AND YEAR(e.date) = ?
+    GROUP BY m.mood_id
+    ORDER BY m.mood_id
+";
+$moodDistributionStmt = $pdo->prepare($moodDistributionQuery);
+$moodDistributionStmt->execute([$user_id, $currentMonth, $currentYear]);
+$moodDistribution = $moodDistributionStmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Calculate total count of moods
+$totalMoods = array_sum(array_column($moodDistribution, 'count'));
+
+// Add percentage to each mood
+foreach ($moodDistribution as &$mood) {
+    $mood['percentage'] = $totalMoods > 0 ? ($mood['count'] / $totalMoods) * 100 : 0;
+}
+unset($mood); // Unset reference
+
 $todayDate = date('Y-m-d');
 $todayEntryStmt = $pdo->prepare("SELECT * FROM entries WHERE user_id = ? AND date = ?");
 $todayEntryStmt->execute([$user_id, $todayDate]);
@@ -46,7 +68,7 @@ $hasEntryToday = $todayEntryStmt->rowCount() > 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dear Diary</title>
-    <link rel="icon" type="image/x-icon" href="src/img/logo.png">
+    <link rel="icon" type="image/x-icon" href="src/img/icon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -61,6 +83,14 @@ $hasEntryToday = $todayEntryStmt->rowCount() > 0;
             <a href="settings.php">Settings</a>
         </div>
     </div>
+</div>
+
+
+<div class="horizontal-bar">
+    <?php foreach ($moodDistribution as $mood): ?>
+        <div style="background-color: <?php echo htmlspecialchars($mood['color']); ?>; width: <?php echo $mood['percentage']; ?>%;">
+        </div>
+    <?php endforeach; ?>
 </div>
 
 <span class="month-year"><?php echo date('F Y', strtotime("$currentYear-$currentMonth-01")); ?></span>
@@ -81,6 +111,10 @@ $hasEntryToday = $todayEntryStmt->rowCount() > 0;
         </svg>
     </div>
 </div>
+
+
+
+<script src="script.js"></script>
 
 <script>
 
