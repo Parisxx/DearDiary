@@ -13,7 +13,7 @@ $moods = $moodQuery->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dear Diary</title>
-    <link rel="icon" type="image/x-icon" href="src/img/logo.png">
+    <link rel="icon" type="image/x-icon" href="src/img/icon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
