@@ -1,6 +1,6 @@
 <?php
 // Include backend
-include('include/register_backend.php');
+include('include/register_data.php');
 ?>
 
 <!DOCTYPE html>
