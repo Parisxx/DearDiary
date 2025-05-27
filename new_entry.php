@@ -1,6 +1,6 @@
 <?php
 // Include backend
-include('include/new_entry_backend.php');
+include('include/new_entry_data.php');
 
 // Fetch available moods from the database
 $moodQuery = $pdo->query("SELECT mood_id, name FROM moods WHERE mood_id BETWEEN 1 AND 7 ORDER BY mood_id");
